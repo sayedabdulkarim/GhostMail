@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GhostMail - Disposable Email</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>GhostMail</h1>
+      <p class="tagline">Temporary emails that vanish</p>
+    </header>
+
+    <section class="email-box">
+      <div class="email-display">
+        <div class="email-input-group">
+          <input type="text" id="usernameInput" placeholder="enter name" maxlength="30">
+          <span class="domain-suffix">@<span id="domainName">ghostmail.local</span></span>
+        </div>
+        <button id="setBtn" title="Set custom email">Set</button>
+        <button id="copyBtn" title="Copy to clipboard">Copy</button>
+        <button id="refreshBtn" title="Generate random">Random</button>
+      </div>
+      <p class="timer">Email expires in: <span id="countdown">60:00</span></p>
+    </section>
+
+    <section class="inbox">
+      <div class="inbox-header">
+        <h2>Inbox</h2>
+        <span id="emailCount">0 emails</span>
+      </div>
+      <div id="emailList" class="email-list">
+        <p class="empty-state">Waiting for emails...</p>
+      </div>
+    </section>
+
+    <section id="emailView" class="email-view hidden">
+      <div class="email-view-header">
+        <button id="backBtn">&larr; Back</button>
+        <button id="deleteBtn">Delete</button>
+      </div>
+      <div class="email-content">
+        <h3 id="viewSubject"></h3>
+        <p class="email-meta">
+          <span>From: <strong id="viewFrom"></strong></span>
+          <span>Date: <strong id="viewDate"></strong></span>
+        </p>
+        <div id="viewBody" class="email-body"></div>
+      </div>
+    </section>
+
+    <footer>
+      Made with <span class="heart">&#10084;</span> by <a href="https://github.com/sayedabdulkarim" target="_blank">Sayed Abdul Karim</a>
+    </footer>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

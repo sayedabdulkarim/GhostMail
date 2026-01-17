@@ -1,0 +1,369 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: 100vh;
+  color: #e4e4e7;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #a78bfa;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  color: #71717a;
+  font-size: 1rem;
+}
+
+.email-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.email-display {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.email-input-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 250px;
+}
+
+.email-input-group input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 1rem;
+  color: #a78bfa;
+  font-size: 1rem;
+  font-family: monospace;
+  font-weight: 600;
+  outline: none;
+  min-width: 80px;
+}
+
+.email-input-group input::placeholder {
+  color: #71717a;
+  font-weight: 400;
+}
+
+.domain-suffix {
+  color: #71717a;
+  font-family: monospace;
+  padding-right: 1rem;
+  white-space: nowrap;
+}
+
+#domainName {
+  color: #a1a1aa;
+}
+
+.email-display button {
+  background: #a78bfa;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+}
+
+.email-display button:hover {
+  background: #8b5cf6;
+  transform: translateY(-1px);
+}
+
+#setBtn {
+  background: #22c55e;
+}
+
+#setBtn:hover {
+  background: #16a34a;
+}
+
+.email-display button:active {
+  transform: translateY(0);
+}
+
+.timer {
+  text-align: center;
+  margin-top: 1rem;
+  color: #71717a;
+  font-size: 0.875rem;
+}
+
+.timer span {
+  color: #f87171;
+  font-family: monospace;
+}
+
+.inbox {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.inbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.inbox-header h2 {
+  font-size: 1.25rem;
+  color: #e4e4e7;
+}
+
+#emailCount {
+  color: #71717a;
+  font-size: 0.875rem;
+}
+
+.email-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #71717a;
+}
+
+.email-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.email-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.email-item.unread {
+  background: rgba(167, 139, 250, 0.1);
+}
+
+.email-item .from {
+  font-weight: 600;
+  color: #e4e4e7;
+  margin-bottom: 0.25rem;
+}
+
+.email-item .subject {
+  color: #a1a1aa;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-item .time {
+  color: #71717a;
+  font-size: 0.75rem;
+}
+
+.email-view {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-top: 1.5rem;
+}
+
+.email-view.hidden {
+  display: none;
+}
+
+.email-view-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.email-view-header button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e4e4e7;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.email-view-header button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#deleteBtn {
+  border-color: #f87171;
+  color: #f87171;
+}
+
+#deleteBtn:hover {
+  background: rgba(248, 113, 113, 0.2);
+}
+
+.email-content {
+  padding: 1.5rem;
+}
+
+.email-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #e4e4e7;
+}
+
+.email-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: #71717a;
+}
+
+.email-meta strong {
+  color: #a1a1aa;
+}
+
+.email-body {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.email-body img {
+  max-width: 100%;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #a78bfa;
+  color: #1a1a2e;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .email-display {
+    flex-direction: column;
+  }
+
+  .email-display button {
+    width: 100%;
+  }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  color: #71717a;
+  font-size: 0.875rem;
+}
+
+footer .heart {
+  color: #f87171;
+  animation: pulse 1.5s ease infinite;
+}
+
+footer a {
+  color: #a78bfa;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
