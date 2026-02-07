@@ -3,6 +3,8 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
 
 const connectDB = require('./config/db');
@@ -21,8 +23,19 @@ const io = new Server(server, {
 });
 
 // Middleware
+app.use(helmet({
+  contentSecurityPolicy: false // disabled so inline styles/scripts in client work
+}));
 app.use(cors());
 app.use(express.json());
+
+// Rate limiting - 100 requests per 15 minutes per IP
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { error: 'Too many requests, please try again later.' }
+});
+app.use('/api', apiLimiter);
 app.use(express.static(path.join(__dirname, '../client')));
 
 // Routes

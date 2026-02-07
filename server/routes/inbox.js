@@ -3,6 +3,9 @@ const router = express.Router();
 const Email = require('../models/Email');
 const crypto = require('crypto');
 
+// Validate username: only alphanumeric, dots, hyphens, underscores (3-30 chars)
+const isValidUsername = (username) => /^[a-zA-Z0-9._-]{3,30}$/.test(username);
+
 // Get domain
 router.get('/domain', (req, res) => {
   res.json({ domain: process.env.DOMAIN });
@@ -19,6 +22,9 @@ router.post('/generate', (req, res) => {
 router.get('/inbox/:username', async (req, res) => {
   try {
     const { username } = req.params;
+    if (!isValidUsername(username)) {
+      return res.status(400).json({ error: 'Invalid username' });
+    }
     const emails = await Email.find({ username: username.toLowerCase() })
       .select('-html -text -attachments')
       .sort({ createdAt: -1 });
@@ -63,6 +69,9 @@ router.delete('/email/:id', async (req, res) => {
 router.delete('/inbox/:username', async (req, res) => {
   try {
     const { username } = req.params;
+    if (!isValidUsername(username)) {
+      return res.status(400).json({ error: 'Invalid username' });
+    }
     await Email.deleteMany({ username: username.toLowerCase() });
     res.json({ message: 'Inbox cleared' });
   } catch (error) {

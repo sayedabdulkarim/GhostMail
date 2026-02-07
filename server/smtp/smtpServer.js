@@ -4,6 +4,11 @@ const Email = require('../models/Email');
 
 let io = null;
 
+// Simple rate limiter: max 10 connections per minute per IP
+const smtpConnections = new Map();
+const SMTP_RATE_LIMIT = 10;
+const SMTP_RATE_WINDOW = 60 * 1000; // 1 minute
+
 const setSocketIO = (socketIO) => {
   io = socketIO;
 };
@@ -12,6 +17,7 @@ const createSMTPServer = () => {
   const server = new SMTPServer({
     authOptional: true,
     disabledCommands: ['AUTH'],
+    size: 1024 * 1024, // 1MB max email size
     onData(stream, session, callback) {
       let emailData = '';
 
@@ -67,7 +73,21 @@ const createSMTPServer = () => {
       });
     },
     onConnect(session, callback) {
-      console.log(`SMTP connection from: ${session.remoteAddress}`);
+      const ip = session.remoteAddress;
+      const now = Date.now();
+
+      // Clean old entries
+      const record = smtpConnections.get(ip) || [];
+      const recent = record.filter(ts => now - ts < SMTP_RATE_WINDOW);
+
+      if (recent.length >= SMTP_RATE_LIMIT) {
+        console.log(`SMTP rate limit exceeded for: ${ip}`);
+        return callback(new Error('Too many connections, try again later'));
+      }
+
+      recent.push(now);
+      smtpConnections.set(ip, recent);
+      console.log(`SMTP connection from: ${ip}`);
       callback();
     }
   });
